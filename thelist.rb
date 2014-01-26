@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 require 'nokogiri'
 require 'open-uri'
+require 'pry'
+require_relative 'Models/artist'
+require_relative 'Models/event'
+require_relative 'Models/venue'
 
 
 class TheList
@@ -14,6 +18,7 @@ class TheList
 
       if elem.css('a[name]').count > 0
         day = elem.css('a[name]')[0].text
+        next
       end 
       event = {}
     
@@ -21,11 +26,11 @@ class TheList
     
       bands = children.select{|link| link['href'] and link['href'].include? "by-band" }.collect { |link| link.text } 
       venue = children.select{|link| link['href'] and link['href'].include? "by-club" }.collect{ |link| link.text }
+
     
-    
-      event["day"] = day
-      event["bands"] = bands
-      event["venues"] = venue;
+      event['day'] = day
+      event['bands'] = bands
+      event['venues'] = venue
       events.push(event)
     }
     return events
@@ -47,6 +52,34 @@ class TheList
       string << printEvents(eventsOnPage(i))
     end
     return string
+  end
+
+  def self.fetchRecent
+
+    events = [];
+    for i in 0..5
+      events << TheList.eventsOnPage(i)
+    end
+    events = events.flatten()
+
+    for event in events
+
+
+
+      date = Date.strptime(event['day'], '%a %b %d')
+      newEvent = Event.create(:event_date => date)
+      next if newEvent.nil?
+      
+      for band in event['bands']
+        newEvent.artists.push(Artist.find_or_create_by(:name => band))
+      end
+
+      for venue in event['venues']
+        newVenue = Venue.find_or_create_by(:name => venue)
+        newEvent.venue = newVenue
+      end
+    end
+    return "success"
   end
 
 end
