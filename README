@@ -1,0 +1,1 @@
+a sinatra app that scrapes http://www.foopee.com/punk/the-list/ and produces json. 
