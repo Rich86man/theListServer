@@ -1,6 +1,5 @@
 development:
   adapter: postgresql
-  database: development
-  username: rich00man
-  password: tachyon
+  database: app-dev
+  username: user
   host: localhost
