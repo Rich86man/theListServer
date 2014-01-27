@@ -1,3 +1,4 @@
+require_relative '../Models/event'
 class EventController
 
   def self.show_all_json

@@ -1,11 +1,11 @@
 require 'sinatra'
 require 'sinatra/activerecord'
-require './config/enviroments'
-require './thelist.rb'
-require './models/model'
-require_relative 'artist_controller'
-require_relative 'event_controller'
-require_relative 'venue_controller'
+require_relative './config/enviroments'
+require_relative 'thelist.rb'
+require_relative './models/model'
+require_relative './Controllers/artist_controller'
+require_relative './Controllers/event_controller'
+require_relative './Controllers/venue_controller'
 
 get '/' do
   TheList.printPages(0)

@@ -1,4 +1,4 @@
-require_relative 'Models/artist'
+require_relative '../Models/artist'
 class ArtistController
 
   def self.show_all_json
