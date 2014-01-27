@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8e0743c5-3186-4ad9-8d35-3f2e4b57ebbe" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rakefile" afterPath="$PROJECT_DIR$/Rakefile" />
-    </list>
+    <list default="true" id="8e0743c5-3186-4ad9-8d35-3f2e4b57ebbe" name="Default" comment="" />
     <ignored path="thelist.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -90,7 +88,7 @@
       <file leaf-file-name="Rakefile" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Rakefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="3" selection-start="3413" selection-end="3413" vertical-scroll-proportion="1.3580875" vertical-offset="165" max-vertical-offset="1590">
+            <state line="38" column="55" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.41200408" vertical-offset="165" max-vertical-offset="1590">
               <folding />
             </state>
           </provider>
@@ -320,6 +318,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -638,7 +637,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Rakefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="3" selection-start="3413" selection-end="3413" vertical-scroll-proportion="1.3580875" vertical-offset="165" max-vertical-offset="1590">
+        <state line="38" column="55" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.41200408" vertical-offset="165" max-vertical-offset="1590">
           <folding />
         </state>
       </provider>

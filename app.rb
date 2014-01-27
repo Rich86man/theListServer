@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+# require 'json'
 require_relative './config/enviroments'
 require_relative 'thelist.rb'
 require_relative './Controllers/artist_controller'
@@ -21,6 +22,7 @@ get '/artists' do
 end
 
 get '/events' do
+  content_type :json
   EventController.show_all_json
 end
 

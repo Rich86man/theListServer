@@ -2,7 +2,7 @@
 # => postgres://{user}:{password}@{host}:{port}/path
 
 configure :production, :development do
-	db = URI.parse( ENV['DATABASE_URL'] || 'postgres://rich00man:tachyon@localhost:5432/development')
+	db = URI.parse( ENV['DATABASE_URL'] || 'postgres://rich00man:tachyon@localhost:5432/app-dev')
  
 	ActiveRecord::Base.establish_connection(
 			:adapter => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
