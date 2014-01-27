@@ -63,21 +63,19 @@ class TheList
     events = events.flatten()
 
     for event in events
-
-
-
+      venue = Venue.find_or_create_by(:name => event['venues'][0])
       date = Date.strptime(event['day'], '%a %b %d')
-      newEvent = Event.create(:event_date => date)
-      next if newEvent.nil?
-      
+      newEvent = Event.create(:event_date => date, :venue => venue)
+      if !newEvent.valid?
+        puts "found duplicate"
+        next
+      end
+
       for band in event['bands']
         newEvent.artists.push(Artist.find_or_create_by(:name => band))
       end
 
-      for venue in event['venues']
-        newVenue = Venue.find_or_create_by(:name => venue)
-        newEvent.venue = newVenue
-      end
+
     end
     return "success"
   end
