@@ -7,14 +7,12 @@ require_relative './Controllers/event_controller'
 require_relative './Controllers/venue_controller'
 
 get '/' do
-  TheList.printPages(0)
+  TheList.printPages
 end
-
 
 get '/fetch' do
   TheList.fetchRecent
 end
-
 
 get '/artists' do
   ArtistController.show_all_json
