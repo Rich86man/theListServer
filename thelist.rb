@@ -48,21 +48,19 @@ class TheList
 
   def self.printPages(num)
     string = ""
-    for i in 0..num
-      string << printEvents(eventsOnPage(i))
-    end
+    num.times { |i| string << printEvents(eventsOnPage(i)) }
+
     return string
   end
 
   def self.fetchRecent
 
     events = [];
-    for i in 0..5
-      events << TheList.eventsOnPage(i)
-    end
+    5.times { |i| events << TheList.eventsOnPage(i) }
+    
     events = events.flatten()
 
-    for event in events
+    events.each do |event|
       venue = Venue.find_or_create_by(:name => event['venues'][0])
       date = Date.strptime(event['day'], '%a %b %d')
       newEvent = Event.create(:event_date => date, :venue => venue)
@@ -71,7 +69,7 @@ class TheList
         next
       end
 
-      for band in event['bands']
+      event['bands'].each do |band|
         newEvent.artists.push(Artist.find_or_create_by(:name => band))
       end
 
