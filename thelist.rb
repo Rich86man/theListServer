@@ -55,7 +55,7 @@ class TheList
 
   def self.fetchRecent
 
-    events = [];
+    events = []
     6.times { |i| events << TheList.eventsOnPage(i) }
     
     events = events.flatten()
