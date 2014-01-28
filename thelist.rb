@@ -48,7 +48,7 @@ class TheList
 
   def self.printPages(num)
     string = ""
-    num.times { |i| string << printEvents(eventsOnPage(i)) }
+    (num + 1).times { |i| string << printEvents(eventsOnPage(i)) }
 
     return string
   end
@@ -56,7 +56,7 @@ class TheList
   def self.fetchRecent
 
     events = [];
-    5.times { |i| events << TheList.eventsOnPage(i) }
+    6.times { |i| events << TheList.eventsOnPage(i) }
     
     events = events.flatten()
 
