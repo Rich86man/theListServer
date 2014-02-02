@@ -3,5 +3,6 @@ class Event < ActiveRecord::Base
   belongs_to :venue
 
   validates :venue, :presence => true
+  validates_presence_of :artists
   validates_uniqueness_of :event_date, :scope => :venue
 end

@@ -6,6 +6,11 @@ require_relative 'Models/artist'
 require_relative 'Models/event'
 require_relative 'Models/venue'
 
+class String
+  def numeric?
+    Float(self) != nil rescue false
+  end
+end
 
 class TheList
 
@@ -25,13 +30,64 @@ class TheList
       end
       event = {}
 
+      
+      hour = ""
+      price = 0
+      ageLimit = ""
+      reccomendationLevel = 0
+      pitWarning = false
+      sellout = false
+      noInOut = false
+      strings = elem.children.last.inner_text.split(' ')
+      strings.each { |string| 
+        if string.include? ('$') and string.tr("$", "").numeric?
+          price = string.tr("$", "")
+          next
+        end
+        
+        if string.downcase.include? ('pm') or string.downcase.include? ('am')
+          hour = string
+          next
+        end
+        
+        if string.downcase.include? ('a/a') or (string.length < 4 or string.include? ('+')) or string.numeric?
+          ageLimit = string
+          next
+        end
+          
+        if string == "*" or string == "**" or string == "***" or string == "****" or string == "*****"
+          reccomendationLevel = string.length
+          next
+        end
+        
+        if string == "@"
+          pitWarning = true
+          next
+        end
+        
+        if string == "$"
+          sellout = true
+          next
+        end
+        
+        if string == "#"
+          noInOut = true
+          next
+        end
+      }
+      
       children = elem.children.css('a')
 
       bands = children.select{|link| link['href'] and link['href'].include? "by-band" }.collect { |link| link.text }
       venue = children.select{|link| link['href'] and link['href'].include? "by-club" }.collect{ |link| link.text }
-
-
-      event['day'] = day
+      
+      event['noInOut'] = noInOut
+      event['sellout'] = sellout
+      event['pitWarning'] = pitWarning
+      event['recommendation'] = reccomendationLevel
+      event['hour'] = hour 
+      event['price'] = price 
+      event['day'] = day + hour
       event['bands'] = bands
       event['venues'] = venue
       events.push(event)
@@ -68,15 +124,24 @@ class TheList
 
     events.flatten.each do |event|
       venue = Venue.find_or_create_by(:name => event['venues'][0])
-      date = Date.strptime(event['day'], '%a %b %d')
-      newEvent = Event.create(:event_date => date, :venue => venue)
+      date = DateTime.parse(event['day'])
+      bands = []
+      event['bands'].each do |band|
+        bands.push(Artist.find_or_create_by(:name => band))
+      end
+      
+      newEvent = Event.create(:event_date => date, 
+                              :venue => venue,
+                              :noInOutWarning => event['noInOut'], 
+                              :sellOutWarning => event['sellout'], 
+                              :pitWarning => event['pitWarning'], 
+                              :recommendation => event['recommendation'], 
+                              :hour => event['hour'], 
+                              :price => event['price'],
+                              :artists => bands)
       if !newEvent.valid?
         puts "found duplicate"
         next
-      end
-
-      event['bands'].each do |band|
-        newEvent.artists.push(Artist.find_or_create_by(:name => band))
       end
 
 

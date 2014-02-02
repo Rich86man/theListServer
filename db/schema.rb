@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201235219) do
+ActiveRecord::Schema.define(version: 20140202213205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(version: 20140201235219) do
     t.integer  "price"
     t.integer  "venue_id"
     t.datetime "event_date"
+    t.string   "hour"
+    t.integer  "recommendation"
+    t.boolean  "pitWarning"
+    t.boolean  "sellOutWarning"
+    t.boolean  "noInOutWarning"
   end
 
   create_table "models", force: true do |t|
