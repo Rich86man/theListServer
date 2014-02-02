@@ -1,5 +1,5 @@
 development:
   adapter: postgresql
   database: app-dev
-  username: user
+  username: rich00man
   host: localhost

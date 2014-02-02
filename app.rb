@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'geocoder'
 require_relative './config/enviroments'
 require_relative 'thelist.rb'
 require_relative './Controllers/artist_controller'
