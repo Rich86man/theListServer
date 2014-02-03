@@ -139,6 +139,7 @@ class TheList
       end
       
     end
+    puts "created " + newEventsCount.to_s + " events"
     return "created " + newEventsCount.to_s + " events"
   end
 
