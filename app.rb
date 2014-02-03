@@ -24,6 +24,10 @@ get '/events' do
   EventController.show_all_json
 end
 
+get '/c' do
+  EventController.show_count
+end
+
 get '/venues' do
   VenueController.show_all_json
 end

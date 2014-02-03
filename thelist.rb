@@ -130,23 +130,13 @@ class TheList
         bands.push(Artist.find_or_create_by(:name => band))
       end
       
-      newEvent = Event.create(:event_date => date, 
-                              :venue => venue,
-                              :noInOutWarning => event['noInOut'], 
-                              :sellOutWarning => event['sellout'], 
-                              :pitWarning => event['pitWarning'], 
-                              :recommendation => event['recommendation'], 
-                              :hour => event['hour'], 
-                              :price => event['price'],
-                              :artists => bands)
-      if !newEvent.valid?
-        puts "found duplicate"
-        next
-      end
-
+      newEvent = Event.new(:event_date => date, :venue => venue, :noInOutWarning => event['noInOut'], :sellOutWarning => event['sellout'], :pitWarning => event['pitWarning'], :recommendation => event['recommendation'], :hour => event['hour'], :price => event['price'])
+      newEvent.artists = bands
+              
+      newEvent.save
 
     end
-    return "success"
+    return "created " + Event.all.count.to_s + " events"
   end
 
 end
