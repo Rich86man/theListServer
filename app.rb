@@ -12,7 +12,7 @@ get '/' do
 end
 
 get '/fetch' do
-  TheList.fetchRecent
+  TheList.fetchRecent(params[:offset],params[:pages])
 end
 
 get '/artists' do

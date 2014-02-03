@@ -14,8 +14,6 @@ end
 
 class TheList
 
-  NUM_RECENT_PAGES = 5
-
   def self.eventsOnPage(num)
     doc = Nokogiri::HTML(open("http://www.foopee.com/punk/the-list/by-date.#{num}.html"))
     events = []
@@ -118,14 +116,16 @@ class TheList
     return string
   end
 
-  def self.fetchRecent
+  def self.fetchRecent(offset=0, count=1)
     events = []
-    NUM_RECENT_PAGES.times { |i| events << TheList.eventsOnPage(i) }
-
+    num = count.to_i
+    num.times { |i| events << TheList.eventsOnPage(i + offset.to_i) }
+    newEventsCount = 0
     events.flatten.each do |event|
       venue = Venue.find_or_create_by(:name => event['venues'][0])
       date = DateTime.parse(event['day'])
       bands = []
+      
       event['bands'].each do |band|
         bands.push(Artist.find_or_create_by(:name => band))
       end
@@ -133,10 +133,12 @@ class TheList
       newEvent = Event.new(:event_date => date, :venue => venue, :noInOutWarning => event['noInOut'], :sellOutWarning => event['sellout'], :pitWarning => event['pitWarning'], :recommendation => event['recommendation'], :hour => event['hour'], :price => event['price'])
       newEvent.artists = bands
               
-      newEvent.save
-
+      if newEvent.save
+        newEventsCount += 1
+      end
+      
     end
-    return "created " + Event.all.count.to_s + " events"
+    return "created " + newEventsCount.to_s + " events"
   end
 
 end
