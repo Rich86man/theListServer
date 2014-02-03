@@ -1,6 +1,5 @@
 require './app'
 require 'sinatra/activerecord/rake'
-
 require 'active_record'
 require 'fileutils'
 
@@ -25,6 +24,11 @@ namespace :db do
     config = YAML::load(File.open('config/database.yml'))[env]
     connect(config)
     ActiveRecord::Base.connection.create_database(config['database'])
+  end
+
+  desc "Create the database defined in config/database.yml for the current RACK_ENV"
+  task :fetch do
+    TheList.fetchRecent(0,5)
   end
 
   namespace :create do

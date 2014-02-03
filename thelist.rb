@@ -2,6 +2,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
+require 'date'
 require_relative 'Models/artist'
 require_relative 'Models/event'
 require_relative 'Models/venue'
@@ -85,7 +86,7 @@ class TheList
       event['recommendation'] = reccomendationLevel
       event['hour'] = hour 
       event['price'] = price 
-      event['day'] = day + hour
+      event['day'] = day
       event['bands'] = bands
       event['venues'] = venue
       events.push(event)
