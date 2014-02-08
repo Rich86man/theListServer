@@ -7,6 +7,8 @@ require_relative './Controllers/artist_controller'
 require_relative './Controllers/event_controller'
 require_relative './Controllers/venue_controller'
 
+set :protection, except: :remote_token
+
 get '/' do
   TheList.printPages
 end
@@ -30,4 +32,15 @@ end
 
 get '/venues' do
   VenueController.show_all_json
+end
+
+post '/venues/:id' do
+  puts "id : #{params[:id]} lat : #{params[:lat]} long : #{params[:log]}"
+  venue = Venue.find(params[:id])
+  if venue and params[:lat] and params[:log] 
+    venue.latitude = params[:lat]
+    venue.longitude = params[:log]
+    venue.save
+  end
+  
 end
