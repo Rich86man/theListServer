@@ -41,6 +41,8 @@ post '/venues/:id' do
     venue.latitude = params[:lat]
     venue.longitude = params[:log]
     venue.save
+  else
+    halt 406
   end
   
 end
