@@ -37,10 +37,11 @@ end
 post '/venues/:id' do
   puts "id : #{params[:id]} lat : #{params[:lat]} long : #{params[:log]}"
   venue = Venue.find(params[:id])
-  if venue and params[:lat] and params[:log] 
+  halt 405 unless venue
+  if params[:lat] and params[:log] 
     venue.latitude = params[:lat]
     venue.longitude = params[:log]
-    venue.save
+    halt 407 unless venue.save
   else
     halt 406
   end
