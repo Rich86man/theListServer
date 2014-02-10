@@ -26,6 +26,11 @@ get '/events' do
   EventController.show_all_json
 end
 
+get '/events/:id' do
+  content_type :json
+  Event.find(params[:id]).to_json(:include => [:venue, :artists])
+end
+
 get '/c' do
   EventController.show_count
 end
