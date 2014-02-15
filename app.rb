@@ -23,7 +23,16 @@ end
 
 get '/events' do
   content_type :json
+  if params[:date]
+  EventController.show_all_json_with_date(params[:date])
+  else
   EventController.show_all_json
+  end
+end
+
+get '/deletions' do
+  content_type :json
+  EventController.show_deletions
 end
 
 get '/events/:id' do

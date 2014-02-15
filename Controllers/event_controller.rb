@@ -9,4 +9,15 @@ class EventController
     count = Event.all.count
     return "Events count : " + count.to_s
   end
+  
+  def self.show_all_json_with_date(dateToFind)
+    selected_date = Date.parse(dateToFind)
+    # This will look for records on the given date between 00:00:00 and 23:59:59
+    Event.where( :event_date => selected_date.change(:hour => 0)..selected_date.change(:hour => 24)).to_json(:include => [:venue, :artists])
+  end
+  
+  def self.show_deletions
+    []
+  end
+  
 end
