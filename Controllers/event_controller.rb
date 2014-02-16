@@ -21,7 +21,7 @@ class EventController
   end
   
   def self.show_deletions
-    Event.where(:canceled => true).to_json
+    Event.where(:canceled => true).pluck(:id).to_json
   end
   
 end
