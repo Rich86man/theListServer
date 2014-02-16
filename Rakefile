@@ -31,6 +31,11 @@ namespace :db do
     TheList.fetchAll
   end
 
+  desc "find all canceled events"
+  task :findCanceled do
+    TheList.findAllCanceledEvents
+  end
+  
   namespace :create do
     desc "Create all the local databases defined in config/database.yml"
     task :all do

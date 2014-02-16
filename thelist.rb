@@ -164,23 +164,36 @@ class TheList
   end
   
   def self.findAllCanceledEvents
+    canceledEvents = []
     100.times { |i|
       begin
         events = self.eventsOnPage(i)
-        
-        
-        
+        dates = Hash.new
+        events.map{ |e| dates[e['venues'].first] = DateTime.parse(e['day']) }
+        # binding.pry
+        Event.where("event_date IN (?)", dates.values).to_a.each do |eventRecord| 
+          if !dates.keys.map{|k| k.downcase.delete(' ')}.include?(eventRecord.venue.name.downcase.delete(' '))
+            binding.pry
+            canceledEvents << eventRecord
+          end
+        end
         
         
       rescue Exception => e
         puts "Couldn't read index #{i}: #{ e }"
         break
       end      
+      
     }
+    canceledEvents.map { |e| 
+      e.canceled = true
+      e.save()
+      puts "Cancelled : #{e.event_date} - #{e.venue.name}"
+    
+    }
+    puts "found " + canceledEvents.count.to_s + " canceled events"
   end
-  
-  
-  
+
 end
 
 
