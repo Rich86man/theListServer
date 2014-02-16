@@ -16,7 +16,9 @@ end
 class TheList
 
   def self.eventsOnPage(num)
+    # binding.pry
     doc = Nokogiri::HTML(open("http://www.foopee.com/punk/the-list/by-date.#{num}.html"))
+
     events = []
 
     listElements = doc.css('li')
@@ -121,6 +123,10 @@ class TheList
     events = []
     num = count.to_i
     num.times { |i| events << TheList.eventsOnPage(i + offset.to_i) }
+    self.insertEvents(events)
+  end
+
+  def self.insertEvents(events)
     newEventsCount = 0
     events.flatten.each do |event|
       venue = Venue.find_or_create_by(:name => event['venues'][0])
@@ -140,9 +146,41 @@ class TheList
       
     end
     puts "created " + newEventsCount.to_s + " events"
-    return "created " + newEventsCount.to_s + " events"
+    return newEventsCount
+    
   end
 
+  def self.fetchAll
+    newEvents = 0
+    100.times { |i|
+      begin
+        newEvents += self.insertEvents(self.eventsOnPage(i))
+      rescue Exception => e
+        puts "Couldn't read index #{i}: #{ e }"
+        break
+      end      
+    }
+    puts "created " + newEvents.to_s + " events"
+  end
+  
+  def self.findAllCanceledEvents
+    100.times { |i|
+      begin
+        events = self.eventsOnPage(i)
+        
+        
+        
+        
+        
+      rescue Exception => e
+        puts "Couldn't read index #{i}: #{ e }"
+        break
+      end      
+    }
+  end
+  
+  
+  
 end
 
 

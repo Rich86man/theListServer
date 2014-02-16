@@ -26,9 +26,9 @@ namespace :db do
     ActiveRecord::Base.connection.create_database(config['database'])
   end
 
-  desc "Create the database defined in config/database.yml for the current RACK_ENV"
+  desc "fetch all data"
   task :fetch do
-    TheList.fetchRecent(0,5)
+    TheList.fetchAll
   end
 
   namespace :create do
