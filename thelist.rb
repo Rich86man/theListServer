@@ -173,7 +173,6 @@ class TheList
         # binding.pry
         Event.where("event_date IN (?)", dates.values).to_a.each do |eventRecord| 
           if !dates.keys.map{|k| k.downcase.delete(' ')}.include?(eventRecord.venue.name.downcase.delete(' '))
-            binding.pry
             canceledEvents << eventRecord
           end
         end
