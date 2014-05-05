@@ -193,6 +193,10 @@ class TheList
     puts "found " + canceledEvents.count.to_s + " canceled events"
   end
 
+  def self.deleteExpired
+    Events.delete_all(":event_date < ?", Date.yesterday)
+  end
+
 end
 
 

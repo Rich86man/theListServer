@@ -9,6 +9,14 @@ task :environment do
   p "** #{env}"
 end
 
+task :update_data => :environment do
+  if Time.now.friday? # previous answer: Date.today.wday == 5
+        TheList.fetchAll
+        TheList.findAllCanceledEvents
+        TheList.deleteExpired
+  end
+end
+
 namespace :db do
   def connect(conf)
     if conf["adapter"] == 'postgresql'
