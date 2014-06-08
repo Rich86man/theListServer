@@ -3,7 +3,6 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 require 'date'
-require 'Events'
 require_relative 'Models/artist'
 require_relative 'Models/event'
 require_relative 'Models/venue'
@@ -195,7 +194,7 @@ class TheList
   end
 
   def self.deleteExpired
-    Events.delete_all(":event_date < ?", Date.yesterday)
+    Event.delete_all(":event_date < ?", Date.yesterday)
   end
 
 end
