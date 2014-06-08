@@ -44,6 +44,11 @@ namespace :db do
     TheList.findAllCanceledEvents
   end
   
+  desc "delete all expired events"
+  task :deleteExpired do
+    TheList.deleteExpired
+  end
+  
   namespace :create do
     desc "Create all the local databases defined in config/database.yml"
     task :all do
