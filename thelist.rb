@@ -194,7 +194,7 @@ class TheList
   end
 
   def self.deleteExpired
-    Event.delete_all([":event_date < ?", Date.yesterday])
+    Event.delete_all(["event_date < ?", Date.yesterday])
   end
 
 end
