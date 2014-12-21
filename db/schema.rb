@@ -15,16 +15,16 @@ ActiveRecord::Schema.define(version: 20140216060437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "artists", force: true do |t|
+  create_table "artists", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "artists_events", id: false, force: true do |t|
+  create_table "artists_events", id: false, force: :cascade do |t|
     t.integer "artist_id"
     t.integer "event_id"
   end
 
-  create_table "events", force: true do |t|
+  create_table "events", force: :cascade do |t|
     t.string   "name"
     t.integer  "price"
     t.integer  "venue_id"
@@ -37,11 +37,11 @@ ActiveRecord::Schema.define(version: 20140216060437) do
     t.boolean  "canceled",       default: false
   end
 
-  create_table "models", force: true do |t|
+  create_table "models", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "venues", force: true do |t|
+  create_table "venues", force: :cascade do |t|
     t.string "name"
     t.float  "latitude"
     t.float  "longitude"

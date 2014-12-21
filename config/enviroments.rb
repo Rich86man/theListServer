@@ -2,13 +2,13 @@
 # => postgres://{user}:{password}@{host}:{port}/path
 
 configure :production, :development do
-	db = URI.parse( ENV['DATABASE_URL'])
- 
+  # db = URI.parse( ENV['DATABASE_URL'])
+   db = URI.parse( ENV['DATABASE_URL'] || 'postgres://user:icehouse@localhost:5432/app-dev')
 	ActiveRecord::Base.establish_connection(
 			:adapter => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
 			:host     => db.host,
 			:username => db.user,
-			:password => db.password,
+			:password => 'icehouse',
 			:database => db.path[1..-1],
 			:encoding => 'utf8'
 	)
