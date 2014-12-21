@@ -10,11 +10,9 @@ task :environment do
 end
 
 task :update_data => :environment do
-  if Time.now.friday? # previous answer: Date.today.wday == 5
         TheList.fetchAll
         TheList.findAllCanceledEvents
         TheList.deleteExpired
-  end
 end
 
 namespace :db do
