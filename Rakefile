@@ -6,7 +6,7 @@ require 'fileutils'
 task :environment do
   env = ENV["RACK_ENV"] ? ENV["RACK_ENV"] : "development"
   dbconfig = YAML.load(ERB.new(File.read(File.join("config","database.yml"))).result)
-  ActiveRecord::Base.establish_connection(dbconfig)[env])
+  ActiveRecord::Base.establish_connection(dbconfig[env])
   p "** #{env}"
 end
 
