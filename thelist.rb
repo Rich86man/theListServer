@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 require 'nokogiri'
 require 'open-uri'
-require 'pry'
 require 'date'
 require_relative 'Models/artist'
 require_relative 'Models/event'
